@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+    "XBX",
+    "XDX",
+    "XSX"
+  ],
+
+  "key":
+  {
+    "B":
+    {
+      "item": "minecraft:iron_ingot"
+    },
+
+    "X":
+    {
+      "item": "minecraft:leather"
+    },
+
+    "D":
+    {
+      "item": "minecraft:chest"
+    },
+
+    "S":
+    {
+      "tag": "minecraft:wool"
+    }
+  },
+
+  "result":
+  {
+    "item": "testmod:scratch_pack",
+    "count": 1
+  }
+}

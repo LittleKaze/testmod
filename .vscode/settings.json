@@ -1,0 +1,4 @@
+{
+    "files.maxMemoryForLargeFilesMB": 8000,
+    "typescript.tsserver.maxTsServerMemory": 5000
+}
