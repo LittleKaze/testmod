@@ -37,37 +37,45 @@ public class TestMod implements ModInitializer {
     private static KeyBinding keyBinding;
     public static final String BACKPACK_TRANSLATION_KEY = Util.createTranslationKey("container", BACKPACK_IDENTIFIER);
 
+    public static final Identifier OPEN_PACK_PACKET = new Identifier("testmod", "open_pack");
+
     @Override
     public void onInitialize() 
     {
-    
-    Registry.register(Registry.ITEM, new Identifier("testmod", "scratch_pack"), SCRATCH_PACK);
+        Registry.register(Registry.ITEM, new Identifier("testmod", "scratch_pack"), SCRATCH_PACK);
 
-    keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-        "key.testmod.scratch_pack", // The translation key of the keybinding's name
-        InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
-        GLFW.GLFW_KEY_B, // The keycode of the key
-        "category.testmod.scratch_pack" // The translation key of the keybinding's category.
-    ));
+        keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.testmod.scratch_pack", // The translation key of the keybinding's name
+            InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+            GLFW.GLFW_KEY_B, // The keycode of the key
+            "category.testmod.scratch_pack" // The translation key of the keybinding's category.
+        ));
 
-    ClientTickEvents.END_CLIENT_TICK.register(client -> {
-        while (keyBinding.wasPressed()) {
+        ServerPlayNetworking.registerGlobalReceiver(OPEN_PACK_PACKET, (server, player, handler, buffer, responseSender) -> {
+            Optional<TrinketComponent> trinketcomponent = TrinketsApi.getTrinketComponent(player);
+            
+            if (trinketcomponent.get().isEquipped(SCRATCH_PACK)) {
+                List<Pair<SlotReference, ItemStack>> pairs = trinketcomponent.get().getEquipped(SCRATCH_PACK);
+                ItemStack pack = pairs.get(0).getRight();
+                
+                ContainerProviderRegistry.INSTANCE.openContainer(TestMod.BACKPACK_IDENTIFIER, player, buf -> {
+                    buf.writeItemStack(pack);
+                    buf.writeInt(0);
+                    buf.writeString(pack.getName().asString());
+                });
+            }
+        })
 
-            ClientPlayerEntity player = client.player;
-           Optional<TrinketComponent> trinketcomponent = TrinketsApi.getTrinketComponent(player);
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (keyBinding.wasPressed()) {
+                ClientPlayerEntity player = client.player;
+                Optional<TrinketComponent> trinketcomponent = TrinketsApi.getTrinketComponent(player);
 
-           if (trinketcomponent.get().isEquipped(SCRATCH_PACK)){
-               List<Pair<SlotReference, ItemStack>> pairs = trinketcomponent.get().getEquipped(SCRATCH_PACK);
-               ItemStack pack = pairs.get(0).getRight();
-
-                   ContainerProviderRegistry.INSTANCE.openContainer(TestMod.BACKPACK_IDENTIFIER, player, buf -> {
-                       buf.writeItemStack(pack);
-                       buf.writeInt(0);
-                       buf.writeString(pack.getName().asString());
-                   });
-           }
-        }
-    });
+                if (trinketcomponent.get().isEquipped(SCRATCH_PACK)) {
+                    ClientPlayNetworking.send(OPEN_PACK_PACKET, PacketByteBufs.create());
+                }
+            }
+        });
     }
     
     public static void log(java.lang.System.Logger.Level level, String message)
