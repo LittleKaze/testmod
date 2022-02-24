@@ -12,11 +12,11 @@ import net.minecraft.text.TranslatableText;
 @Environment(EnvType.CLIENT)
 public class ScratchpackClient implements ClientModInitializer
 {
-    public static final ScreenHandlerType<ScratchpackScreenHandler> OVEN = ScreenHandlerRegistry.registerSimple(TestMod.BACKPACK_IDENTIFIER, PackScreenHandler::new);
+    public static final ScreenHandlerType<PackScreenHandler> SCRATCH_PACK = ScreenHandlerRegistry.registerSimple(TestMod.BACKPACK_IDENTIFIER, PackScreenHandler::new);
 
      @Override
     public void onInitializeClient()
     {
-        ScreenProviderRegistry.INSTANCE.<ScratchpackScreenHandler>registerFactory(TestMod.BACKPACK_IDENTIFIER, (container -> new ScratchpackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText("TestMod.scratchpack"))));
+        // ScreenProviderRegistry.INSTANCE.<ScratchpackScreenHandler>registerFactory(TestMod.BACKPACK_IDENTIFIER, (container -> new ScratchpackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText("TestMod.scratchpack"))));
     }
 }
