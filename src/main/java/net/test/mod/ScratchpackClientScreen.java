@@ -7,19 +7,20 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class ScratchpackClientScreen extends HandledScreen<ScratchpackScreenHandler>
+public class ScratchpackClientScreen extends HandledScreen<ScreenHandler>
 {
 	   private static final Identifier TEXTURE = new Identifier("textures/gui/container/generic_54.png");
 	   private final int rows;
 
-	   public ScratchpackClientScreen(ScratchpackScreenHandler handler, PlayerInventory inventory, Text title)
+	   public ScratchpackClientScreen(ScreenHandler handler, PlayerInventory inventory, Text title)
 	   {
-		  super(handler, inventory, handler.customTitle.isEmpty() ? title : new LiteralText(handler.customTitle));
+		  super(handler, inventory, new LiteralText("Scratchpack"));
 	      this.passEvents = false;
 	      this.rows = 6;
 	      this.backgroundHeight = 114 + this.rows * 18;

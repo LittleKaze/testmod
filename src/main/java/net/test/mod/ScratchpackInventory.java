@@ -27,6 +27,24 @@ public class ScratchpackInventory implements Inventory, ScratchpackInventoryInte
         this.fromTag(items_tag);
     }
 
+    public ScratchpackInventory(ItemStack stack) {
+
+        NbtCompound tag = stack.getNbt();
+        
+        if(tag != null) {fromTag(tag);
+        } 
+
+        else {
+
+            inventory_width = 9; 
+
+            inventory_height =2;
+
+            this.items = DefaultedList.ofSize(inventory_width * inventory_height, ItemStack.EMPTY);
+
+        }
+    }
+
     @Override
     public void clear()
     {
@@ -135,7 +153,7 @@ public class ScratchpackInventory implements Inventory, ScratchpackInventoryInte
             pack.setNbt(new NbtCompound());
         }
 
-        pack.getNbt().put("backpack", toTag());
+        pack.getNbt().put("scratchpack", toTag());
         player.playSound(SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.PLAYERS, 1f, 1f);
     }
 }
