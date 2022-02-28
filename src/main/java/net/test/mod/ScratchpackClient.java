@@ -17,6 +17,7 @@ public class ScratchpackClient implements ClientModInitializer
      @Override
     public void onInitializeClient()
     {
+        ScreenRegistry.register(TestMod.BAG_SCREEN_HANDLER, Generic3x3ContainerScreen::new);
         // ScreenProviderRegistry.INSTANCE.<ScratchpackScreenHandler>registerFactory(TestMod.BACKPACK_IDENTIFIER, (container -> new ScratchpackClientScreen(container, MinecraftClient.getInstance().player.getInventory(), new TranslatableText("TestMod.scratchpack"))));
     }
 }
