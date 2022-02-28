@@ -42,6 +42,8 @@ public class TestMod implements ModInitializer {
 
     public static final Identifier OPEN_PACK_PACKET = new Identifier("testmod", "open_pack");
 
+    public static final ScreenHandlerType<BagScreenHandler> BAG_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier("testmod", "bag"), BagScreenHandler::new);
+
     @Override
     public void onInitialize() 
     {
@@ -60,12 +62,13 @@ public class TestMod implements ModInitializer {
             if (trinketcomponent.get().isEquipped(SCRATCH_PACK)) {
                 List<Pair<SlotReference, ItemStack>> pairs = trinketcomponent.get().getEquipped(SCRATCH_PACK);
                 ItemStack pack = pairs.get(0).getRight();
+                player.openHandledScreen(createScreenHandlerFactory(pack));
                 
-                ContainerProviderRegistry.INSTANCE.openContainer(TestMod.BACKPACK_IDENTIFIER, player, buf -> {
-                    buf.writeItemStack(pack);
-                    buf.writeInt(0);
-                    buf.writeString(pack.getName().asString());
-                });
+                // ContainerProviderRegistry.INSTANCE.openContainer(TestMod.BACKPACK_IDENTIFIER, player, buf -> {
+                //     buf.writeItemStack(pack);
+                //     buf.writeInt(0);
+                //     buf.writeString(pack.getName().asString());
+                // });
             }
         });
 
@@ -79,6 +82,12 @@ public class TestMod implements ModInitializer {
                 }
             }
         });
+    }
+
+    private NamedScreenHandlerFactory createScreenHandlerFactory(ItemStack stack) {
+        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> {
+			return new BagScreenHandler(syncId, inventory, new ScratchpackInventory(stack));
+		}, stack.getName());
     }
     
     public static void log(java.lang.System.Logger.Level level, String message)
