@@ -1,4 +1,4 @@
-package net.test.mod;
+package net.test.mod.scratchpack;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import net.test.mod.TestMod;
 
 public class ScratchpackItem extends TrinketItem
 {

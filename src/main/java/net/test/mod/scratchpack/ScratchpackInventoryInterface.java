@@ -1,4 +1,4 @@
-package net.test.mod;
+package net.test.mod.scratchpack;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

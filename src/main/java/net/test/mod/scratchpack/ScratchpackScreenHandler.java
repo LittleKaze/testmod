@@ -1,4 +1,4 @@
-package net.test.mod;
+package net.test.mod.scratchpack;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

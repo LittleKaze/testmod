@@ -1,4 +1,4 @@
-package net.test.mod;
+package net.test.mod.scratchpack;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +15,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
+import net.test.mod.TestMod;
 
 public class ScratchpackInventory implements Inventory, ScratchpackInventoryInterface
 {

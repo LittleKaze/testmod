@@ -1,4 +1,4 @@
-package net.test.mod;
+package net.test.mod.scratchpack;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class ScratchpackClientScreen extends HandledScreen<ScratchpackScreenHandler>
 {
-	   private static final Identifier TEXTURE = new Identifier("textures/gui/container/generic_54.png");
+	   private static final Identifier TEXTURE = new Identifier("textures/gui/container/backpack.png");
 	   private final int rows;
 
 	   public ScratchpackClientScreen(ScratchpackScreenHandler handler, PlayerInventory inventory, Text title)

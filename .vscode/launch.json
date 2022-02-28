@@ -21,7 +21,7 @@
       "stopOnEntry": false,
       "mainClass": "net.fabricmc.devlaunchinjector.Main",
       "vmArgs": "-Dfabric.dli.config\u003dC:\\Users\\Little@@0020Kaze\\Desktop\\testmod\\.gradle\\loom-cache\\launch.cfg -Dfabric.dli.env\u003dserver -Dfabric.dli.main\u003dnet.fabricmc.loader.impl.launch.knot.KnotServer",
-      "args": "nogui"
+      "args": ""
     }
   ]
 }

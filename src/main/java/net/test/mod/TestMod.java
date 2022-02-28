@@ -17,16 +17,19 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
+import net.test.mod.scratchpack.PackScreenHandler;
 
 public class TestMod implements ModInitializer {
 
@@ -41,6 +44,8 @@ public class TestMod implements ModInitializer {
     public static final String BACKPACK_TRANSLATION_KEY = Util.createTranslationKey("container", BACKPACK_IDENTIFIER);
 
     public static final Identifier OPEN_PACK_PACKET = new Identifier("testmod", "open_pack");
+
+    public static final ScreenHandlerType<PackScreenHandler> PACK_SCREEN_HANDLER = ScreenHandlerRegistry.registerExtended(id("scratchpack"), (syncId, inventory, buf) -> new PackScreenHandler(syncId, inventory, buf.readBlockPos(), buf.readBoolean()));;
 
     @Override
     public void onInitialize() 
@@ -84,5 +89,9 @@ public class TestMod implements ModInitializer {
     public static void log(java.lang.System.Logger.Level level, String message)
     {
         ((Logger) LOGGER).log(level, "["+MOD_NAME+"] " + message);
+    }
+
+    public static Identifier id(String string) {
+        return null;
     }
 }
